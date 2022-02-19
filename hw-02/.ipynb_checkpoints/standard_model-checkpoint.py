@@ -113,6 +113,120 @@ class ElementaryParticle:
             raise ValueError("Not Valid Particle... enter ElementaryParticle")
             
         
+
+# +
+class Boson(ElementaryParticle):
+    """
+    Boson: elementary particle that obeys Bose-Einstein statistics.
+    This class inherits the ElementaryParticle class with all its attributes and methods.
+    Further attributes and methods are
+
+    Attributes
+    ----------
+    name: str
+        Name of the particle.
+
+    Methods
+    -------
+    check_existence()
+        Checks whether this Boson can exists by calling its parent's method check_type()
+        Raises a ValueError if check_type() returns "fermion"
+
+    """
+    def __init__(self, name, charge, mass, spin):
+        self.name = name
+        
+        if spin.is_integer() == False:
+            raise ValueError("fermion")
+            
+        super(Boson, self).__init__(charge=charge, mass=mass, spin=spin, ptype=None)
+        
+        
+        
+    
+    def check_existence(self):
+        if super().check_type(self) == "fermion":
+            raise ValueError("fermion")
+        else:
+            return True
+        
+    
 # -
+
+class Fermion(ElementaryParticle):
+    """
+    Fermion: elementary particle that obeys Fermi-Dirac statistics.
+    This class inherits the ElementaryParticle class with all its attributes and methods.
+    Further attributes and methods are
+
+    Attributes
+    ----------
+    name: str
+        Name of the particle.
+
+    Methods
+    -------
+    check_existence()
+        Checks whether this Fermion can exists by calling its parent's method check_type()
+        Raises a ValueError if the check_type() returns "boson"
+
+    is_antiparticle(other):
+        Check whether other is the anti-particle of this Fermion 
+        by checking if other is an instance of Fermion first.
+
+    """
+    def __init__(self, name, charge, mass, spin):
+        self.name = name
+        super(Fermion, self).__init__(charge=charge, mass=mass, spin=spin, ptype=None)
+        
+    
+    
+    def check_existence(self):
+        if super().check_type(self) == "boson":
+            raise ValueError("boson")
+        else:
+            return True
+        
+    def is_antiparticle(self, other):
+        if isinstance(other, Fermion) and self.charge == -other.charge and self.spin == other.spin and self.mass == other.mass:
+            return True
+        
+        return False
+
+
+class CompositeParticle(ElementaryParticle):
+    """
+    A particle composed of several elementary particles.
+
+    Parameters
+    ----------
+
+    name: str
+        Name of the particle.
+
+    particles : list
+        List of particles objects that compose this particle.
+
+    charge : float
+        Electric charge of the particle.
+
+    mass : float
+        Rest mass in MeV of the particle.
+
+    spin: float
+        Spin of the particle.
+
+    """
+    
+    def __init__(self, name, particles):
+        self.name = name
+        self.charge = 0
+        self.mass = 0
+        self.spin = 0
+        for i in particles:
+            self.charge += i.charge
+            self.mass += i.mass
+            self.spin += i.spin
+ 
 
 
