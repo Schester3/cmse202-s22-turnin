@@ -3,7 +3,6 @@
 import numpy as np
 
 
-# +
 class ElementaryParticle:
     """ Elementary particle class.
 
@@ -112,9 +111,8 @@ class ElementaryParticle:
         else:
             raise ValueError("Not Valid Particle... enter ElementaryParticle")
             
-        
 
-# +
+
 class Boson(ElementaryParticle):
     """
     Boson: elementary particle that obeys Bose-Einstein statistics.
@@ -149,9 +147,7 @@ class Boson(ElementaryParticle):
             raise ValueError("fermion")
         else:
             return True
-        
-    
-# -
+
 
 class Fermion(ElementaryParticle):
     """
@@ -227,6 +223,6 @@ class CompositeParticle(ElementaryParticle):
             self.charge += i.charge
             self.mass += i.mass
             self.spin += i.spin
- 
+
 
 
